@@ -1,0 +1,437 @@
+<title>Регламент работы с блогером</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6F3; --surface:#FFFFFF; --surface-2:#F3EBE7;
+    --ink:#2B2320; --ink-soft:#7C6E68; --ink-faint:#A99C96; --line:#E7DDD7;
+    --accent:#A8425A; --accent-ink:#6E2436; --accent-soft:#F3DEE2;
+    --good:#3D7A52; --good-soft:#E2F0E5; --good-line:#BFDDC7;
+    --warn:#93600F; --warn-soft:#F5E9D3; --warn-line:#E3CB98;
+    --bad:#A5372F; --bad-soft:#F7E1DF; --bad-line:#E7BBB6;
+    --assist:#2F6C90; --assist-soft:#DFEAF1; --assist-line:#B9D3E2;
+    --tl:#2E7D6B; --tl-soft:#E1F0EC; --tl-line:#BFE0D6;
+    --nina:#4C5FA6; --nina-soft:#E4E7F5; --nina-line:#C7CDEA;
+    --lead:#5B4B8A; --lead-soft:#E7E1F5; --lead-line:#CFC2E9;
+    --fin:#8A6327; --fin-soft:#F1E6D3; --fin-line:#E0CBA0;
+    --shadow: 0 1px 2px rgba(43,35,32,.04), 0 8px 24px -12px rgba(43,35,32,.12);
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#221C1A; --surface:#2A2321; --surface-2:#33291F;
+      --ink:#F3EAE5; --ink-soft:#BDAEA7; --ink-faint:#8A7C76; --line:#453A35;
+      --accent:#E28FA3; --accent-ink:#F7DBE2; --accent-soft:#3F2530;
+      --good:#8BCC9D; --good-soft:#23342A; --good-line:#3A4E3E;
+      --warn:#E7B563; --warn-soft:#3A2E18; --warn-line:#5A4726;
+      --bad:#E8938C; --bad-soft:#3D2624; --bad-line:#5C3733;
+      --assist:#8FC1E0; --assist-soft:#213240; --assist-line:#3A5062;
+      --tl:#7FCBB6; --tl-soft:#1E332E; --tl-line:#2F4B43;
+      --nina:#A8B3E8; --nina-soft:#262B47; --nina-line:#3A4066;
+      --lead:#C3B2E8; --lead-soft:#332A4A; --lead-line:#4B3E6B;
+      --fin:#D9B679; --fin-soft:#3A2E19; --fin-line:#5A4726;
+      --shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#221C1A; --surface:#2A2321; --surface-2:#33291F;
+    --ink:#F3EAE5; --ink-soft:#BDAEA7; --ink-faint:#8A7C76; --line:#453A35;
+    --accent:#E28FA3; --accent-ink:#F7DBE2; --accent-soft:#3F2530;
+    --good:#8BCC9D; --good-soft:#23342A; --good-line:#3A4E3E;
+    --warn:#E7B563; --warn-soft:#3A2E18; --warn-line:#5A4726;
+    --bad:#E8938C; --bad-soft:#3D2624; --bad-line:#5C3733;
+    --assist:#8FC1E0; --assist-soft:#213240; --assist-line:#3A5062;
+    --tl:#7FCBB6; --tl-soft:#1E332E; --tl-line:#2F4B43;
+    --nina:#A8B3E8; --nina-soft:#262B47; --nina-line:#3A4066;
+    --lead:#C3B2E8; --lead-soft:#332A4A; --lead-line:#4B3E6B;
+    --fin:#D9B679; --fin-soft:#3A2E19; --fin-line:#5A4726;
+    --shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+    line-height:1.5; padding-inline:20px; padding-block:28px 64px;
+  }
+  .wrap{max-width:900px;margin:0 auto;}
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;text-wrap:balance;color:var(--ink);margin:0;}
+  a{color:var(--accent-ink);}
+  code, .mono, .num{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;}
+
+  header.top{display:flex;flex-direction:column;gap:14px;padding-bottom:26px;margin-bottom:28px;border-bottom:1px solid var(--line);}
+  .eyebrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);}
+  .tag{background:var(--accent-soft);color:var(--accent-ink);padding:3px 10px;border-radius:999px;font-weight:700;letter-spacing:.04em;}
+  .tag.outline{background:transparent;border:1px solid var(--line);color:var(--ink-soft);}
+  header.top h1{font-size:clamp(28px,4.5vw,38px);line-height:1.1;}
+  header.top p.lede{margin:0;color:var(--ink-soft);font-size:16px;max-width:64ch;}
+
+  /* role legend */
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .role{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;border:1px solid;white-space:nowrap;}
+  .role.assist{background:var(--assist-soft);color:var(--assist);border-color:var(--assist-line);}
+  .role.manager{background:var(--accent-soft);color:var(--accent-ink);border-color:var(--accent-line,var(--accent));}
+  .role.lead{background:var(--lead-soft);color:var(--lead);border-color:var(--lead-line);}
+  .role.fin{background:var(--fin-soft);color:var(--fin);border-color:var(--fin-line);}
+  .role.tl{background:var(--tl-soft);color:var(--tl);border-color:var(--tl-line);}
+  .role.nina{background:var(--nina-soft);color:var(--nina);border-color:var(--nina-line);}
+
+  /* stage nav */
+  .stage-nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px;}
+  .stage-nav a{display:flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 13px 7px 9px;font-size:13px;font-weight:600;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);}
+  .stage-nav a .n{font-family:'IBM Plex Mono';font-size:12px;font-weight:700;color:var(--surface);background:var(--accent);border-radius:999px;width:19px;height:19px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+  section.stage{margin-bottom:34px;scroll-margin-top:16px;}
+  .stage-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:6px;flex-wrap:wrap;}
+  .stage-head .badge{font-family:'IBM Plex Mono';font-weight:700;font-size:15px;color:var(--surface);background:var(--ink);border-radius:10px;height:34px;width:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .stage-head h2{font-size:21px;}
+  .stage-goal{color:var(--ink-soft);font-size:14.5px;margin:2px 0 14px;max-width:68ch;}
+  .stage-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+  .sla{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono';font-size:12.5px;font-weight:600;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:4px 10px;color:var(--ink);}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:12px;}
+  .panel h3{font-family:'Manrope';font-size:12px;text-transform:uppercase;letter-spacing:.05em;font-weight:800;color:var(--ink-soft);margin-bottom:10px;}
+  .panel p{margin:0 0 8px;font-size:14.5px;}
+  .panel p:last-child{margin-bottom:0;}
+
+  .steps{display:flex;flex-direction:column;gap:8px;}
+  .step{display:grid;grid-template-columns:26px 1fr;gap:11px;}
+  .step .n{font-family:'IBM Plex Mono';font-weight:700;color:var(--accent);font-size:13px;background:var(--accent-soft);border-radius:7px;height:22px;width:22px;display:flex;align-items:center;justify-content:center;margin-top:1px;flex-shrink:0;}
+  .step .t{font-size:14.5px;}
+  .step .t b{font-weight:600;}
+
+  .kv{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:14px;}
+  .kv div{display:flex;gap:6px;}
+  .kv .k{color:var(--ink-faint);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;font-weight:700;white-space:nowrap;}
+
+  .tool-list{display:flex;flex-wrap:wrap;gap:7px;}
+  .tool{font-family:'IBM Plex Mono';font-size:12.5px;background:var(--surface-2);border:1px solid var(--line);border-radius:7px;padding:4px 9px;}
+
+  .callout{border-radius:var(--radius);padding:14px 18px;border:1px solid;font-size:14px;}
+  .callout.warn{background:var(--warn-soft);border-color:var(--warn-line);color:var(--ink);}
+  .callout b{color:var(--warn);}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media (max-width:640px){.grid2{grid-template-columns:1fr;}}
+
+  footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);}
+  footer h3{font-family:'Fraunces';font-size:17px;margin-bottom:10px;}
+  footer p{color:var(--ink-soft);font-size:13.5px;max-width:70ch;}
+  .track-note{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;font-size:14px;box-shadow:var(--shadow);}
+  .track-note b{font-family:'Manrope';}
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">
+      <span class="tag">MIXIT KZ · Influencer Marketing</span>
+      <span class="tag outline">Весь цикл работы с блогером</span>
+      <span class="tag outline">Все треки</span>
+    </div>
+    <h1>Регламент работы с блогером</h1>
+    <p class="lede">Пошаговый регламент отдела: 10 этапов от постановки задачи до решения о повторном размещении. По каждому этапу — кто отвечает, в какой срок, каким инструментом и что на выходе.</p>
+    <div class="legend">
+      <span class="role manager">Менеджер</span>
+      <span class="role tl">Тим-лид</span>
+      <span class="role nina">Нина</span>
+      <span class="role lead">Руководитель (Сауле)</span>
+      <span class="role fin">Бухгалтерия / 1С</span>
+    </div>
+    <p style="margin:2px 0 0;color:var(--ink-soft);font-size:13.5px;">Иерархия: менеджер по работе с блогером → тим-лид → Нина → руководитель.</p>
+  </header>
+
+  <nav class="stage-nav">
+    <a href="#stage-1"><span class="n">1</span>Планирование</a>
+    <a href="#stage-2"><span class="n">2</span>Поиск и отбор</a>
+    <a href="#stage-3"><span class="n">3</span>Переговоры</a>
+    <a href="#stage-4"><span class="n">4</span>Договор</a>
+    <a href="#stage-5"><span class="n">5</span>ТЗ и продакшн</a>
+    <a href="#stage-6"><span class="n">6</span>Публикация</a>
+    <a href="#stage-7"><span class="n">7</span>Отчётность</a>
+    <a href="#stage-8"><span class="n">8</span>Оплата</a>
+    <a href="#stage-9"><span class="n">9</span>Повторное размещение</a>
+    <a href="#stage-10"><span class="n">10</span>Учёт</a>
+  </nav>
+
+  <div class="panel" style="margin-bottom:32px;">
+    <h3>Две системы учёта блогеров</h3>
+    <p><b>CRM блогеров</b> (<a href="https://blogger-crm.onrender.com/" target="_blank" rel="noopener">blogger-crm.onrender.com</a>) — база кандидатов: от первого контакта до решения по этапу 2. Сюда заносится каждый найденный блогер, чтобы разные менеджеры не выходили повторно на одного и того же человека.</p>
+    <p><b>Система фиксации работы</b> (<a href="https://barter-box-server.onrender.com/" target="_blank" rel="noopener">barter-box-server.onrender.com</a>) — рабочий журнал по блогерам, с которыми уже договорились о сотрудничестве: от подписания условий (этап 4) до оплаты (этап 8). Карточка блогера переезжает из CRM сюда в момент перехода со 2–3 на 4 этап.</p>
+  </div>
+
+  <!-- STAGE 1 -->
+  <section class="stage" id="stage-1">
+    <div class="stage-head"><span class="badge">1</span><h2>Планирование и постановка задачи</h2></div>
+    <p class="stage-goal">Определить, сколько и каких блогеров нужно закрыть по треку в периоде, и довести это до дневной квоты менеджера.</p>
+    <div class="stage-meta">
+      <span class="role tl">Тим-лид</span><span class="role manager">Менеджер</span>
+      <span class="sla">План на месяц — до 3 числа* · на неделю — по понедельникам*</span>
+    </div>
+    <div class="panel">
+      <h3>Шаги</h3>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><span class="t">Тим-лид декомпозирует цель в дневную/недельную квоту для менеджера (например: 300 блогеров / ~400 видео за период — для мелких платных).</span></div>
+        <div class="step"><span class="n">2</span><span class="t">Квота и приоритеты (по каким продуктам нужен упор в этом периоде) доводятся до менеджера в начале дня/недели.</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Инструменты</h3>
+      <div class="tool-list"><span class="tool">Планер «Инфлюенс-Пульс»</span><span class="tool">CPV/ROMI-дэшборд</span></div>
+    </div>
+    <div class="callout warn"><b>Эскалация:</b> квота физически не выполнима силами менеджера в срок — сигнал тим-лиду на пересмотр плана или перераспределение ресурсов.</div>
+  </section>
+
+  <!-- STAGE 2 -->
+  <section class="stage" id="stage-2">
+    <div class="stage-head"><span class="badge">2</span><h2>Поиск и первичный отбор</h2></div>
+    <p class="stage-goal">Найти кандидата и прогнать его через критерии отбора до того, как менеджер выходит на переговоры.</p>
+    <div class="stage-meta">
+      <span class="role manager">Менеджер</span>
+      <span class="sla">Скрининг одного кандидата — до 30–40 минут*</span>
+    </div>
+    <div class="panel">
+      <h3>Шаги</h3>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><span class="t">Базовая анкета блогера: ниша, платформа, подписчики, контакты, ориентир по цене. Проверить по CRM блогеров, не выходил ли на него уже кто-то из команды, и завести карточку кандидата, если её ещё нет.</span></div>
+        <div class="step"><span class="n">2</span><span class="t">Расчёт ER через Apify (<code>instagram-reel-scraper</code> + <code>instagram-profile-scraper</code>) по формуле из регламента критериев — цифры передать на расчёт.</span></div>
+        <div class="step"><span class="n">3</span><span class="t">Скриншоты встроенной статистики блогера (не старше 14 дней), сверка с данными сервисов.</span></div>
+        <div class="step"><span class="n">4</span><span class="t">Ручной просмотр 5–10 последних публикаций: качество съёмки, речь, подача, умение продавать, опыт интеграций.</span></div>
+        <div class="step"><span class="n">5</span><span class="t">Проверка на конкурентов за последние 30 дней и на репутационные риски за последние 6 месяцев.</span></div>
+        <div class="step"><span class="n">6</span><span class="t">Заполнение скоринговой карты и передача менеджеру: согласовано / отказ / на рассмотрение руководителя. Статус кандидата обновляется в CRM.</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Инструменты</h3>
+      <div class="tool-list"><span class="tool">Критерии отбора блогеров</span><span class="tool">LiveDune / trendHERO</span><span class="tool">Apify</span><span class="tool">Скоринговая карта</span><a class="tool" href="https://blogger-crm.onrender.com/" target="_blank" rel="noopener">CRM блогеров</a></div>
+    </div>
+    <div class="callout warn"><b>Эскалация:</b> пограничные случаи и CPV от 5 ₸ — тим-лиду, по правилам эскалации регламента критериев (раздел 12).</div>
+  </section>
+
+  <!-- STAGE 3 -->
+  <section class="stage" id="stage-3">
+    <div class="stage-head"><span class="badge">3</span><h2>Переговоры и согласование условий</h2></div>
+    <p class="stage-goal">Договориться о формате, цене и сроках до оформления договора.</p>
+    <div class="stage-meta">
+      <span class="role manager">Менеджер</span>
+      <span class="sla">От первого контакта до устного согласования — не более 2 рабочих дней*</span>
+    </div>
+    <div class="panel">
+      <h3>Шаги</h3>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><span class="t">Выход на контакт, презентация бренда и формата сотрудничества.</span></div>
+        <div class="step"><span class="n">2</span><span class="t">Согласование формата: платформа, число роликов/сторис, платно или бартер.</span></div>
+        <div class="step"><span class="n">3</span><span class="t">Согласование цены — сверка с CPV (стоимость ÷ гарантированные просмотры).</span></div>
+        <div class="step"><span class="n">4</span><span class="t">Согласование сроков: дата съёмки, дата сдачи черновика, дата публикации.</span></div>
+        <div class="step"><span class="n">5</span><span class="t">Фиксация договорённостей в переписке — основа для договора на следующем этапе. Статус кандидата в CRM меняется на «в переговорах».</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Инструменты</h3>
+      <div class="tool-list"><span class="tool">Шаблон коммерческого предложения</span><span class="tool">CPV-калькулятор</span><a class="tool" href="https://blogger-crm.onrender.com/" target="_blank" rel="noopener">CRM блогеров</a></div>
+    </div>
+    <div class="callout warn"><b>Эскалация:</b> цена выше стандартной вилки по тиру подписчиков, эксклюзивность против конкретного конкурента, нестандартные условия (например, бартер + доплата) — на согласование тим-лиду; крупные отклонения тим-лид поднимает руководителю.</div>
+  </section>
+
+  <!-- STAGE 4 -->
+  <section class="stage" id="stage-4">
+    <div class="stage-head"><span class="badge">4</span><h2>Договор и юридическое оформление</h2></div>
+    <p class="stage-goal">Закрепить условия юридически и завести блогера в учётную систему до начала продакшна.</p>
+    <div class="stage-meta">
+      <span class="role manager">Менеджер</span><span class="role tl">Тим-лид</span><span class="role lead">Руководитель</span><span class="role fin">1С</span>
+      <span class="sla">До 3 рабочих дней с момента согласования условий*</span>
+    </div>
+    <div class="panel">
+      <h3>Шаги</h3>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><span class="t">Сбор реквизитов блогера (ИП / самозанятый / физлицо — от этого зависит ставка НДС в договоре).</span></div>
+        <div class="step"><span class="n">2</span><span class="t">Заполнение шаблона договора по казахстанскому праву: сумма и формат, эксклюзивность, штраф или пересчёт стоимости при недоборе гарантии, порядок доп. соглашений на внеплановый контент, обязательство по маркировке рекламы (см. ниже).</span></div>
+        <div class="step"><span class="n">3</span><span class="t">Проверка тим-лидом типовых условий; эксклюзивность и отклонения от типового шаблона — согласование с руководителем.</span></div>
+        <div class="step"><span class="n">4</span><span class="t">Подписание договора.</span></div>
+        <div class="step"><span class="n">5</span><span class="t">Регистрация блогера и договора в 1С, архивирование копии по треку. Карточка блогера переносится из CRM в систему фиксации работы (barter-box) — с этого момента это подтверждённое сотрудничество, а не кандидат.</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Маркировка рекламы (для официальных интеграций по договору)</h3>
+      <p>Обязательный пункт договора: «Исполнитель обязуется при размещении рекламных материалов о продукции бренда MIXIT в Instagram, TikTok и иных онлайн-платформах обеспечивать их маркировку в соответствии с законодательством Республики Казахстан об онлайн-рекламе». Каждая публикация — Stories, Reels, посты и иные форматы — должна содержать хорошо видимую и однозначно воспринимаемую маркировку:</p>
+      <div style="background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-family:'IBM Plex Mono';font-size:14.5px;font-weight:600;color:var(--accent-ink);">«Реклама | MIXIT | ИП Нигай»</div>
+      <p style="margin-top:8px;">Исполнитель несёт ответственность за фактическое размещение маркировки и обязуется не удалять, не скрывать и не изменять её на весь срок размещения материала. Проверяется на этапах 5 (ТЗ) и 6 (публикация).</p>
+    </div>
+    <div class="panel">
+      <h3>Инструменты</h3>
+      <div class="tool-list"><span class="tool">Типовой договор (РК)</span><span class="tool">1С</span><a class="tool" href="https://barter-box-server.onrender.com/" target="_blank" rel="noopener">Система фиксации работы</a></div>
+    </div>
+    <div class="callout warn"><b>Эскалация:</b> отказ блогера предоставлять реквизиты или подписывать договор, нетиповые юридические условия — решает руководитель. Для бартерных интеграций малого объёма — уточнить с руководителем, действует ли упрощённая форма без полного договора*.</div>
+  </section>
+
+  <!-- STAGE 5 -->
+  <section class="stage" id="stage-5">
+    <div class="stage-head"><span class="badge">5</span><h2>ТЗ и продакшн</h2></div>
+    <p class="stage-goal">Довести бриф до блогера и получить материал, соответствующий стандартам подачи MIXIT, до публикации.</p>
+    <div class="stage-meta">
+      <span class="role manager">Менеджер</span><span class="role tl">Тим-лид</span>
+      <span class="sla">ТЗ передаётся не позднее чем за N дней до публикации*</span>
+    </div>
+    <div class="panel">
+      <h3>Шаги</h3>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><span class="t">Составление ТЗ: обязательные тезисы, ключевые преимущества продукта, тон peer-to-peer (не рекламный, не дикторский). Для официальных интеграций по договору — обязательное требование маркировки «Реклама | MIXIT | ИП Нигай», хорошо видимой на экране.</span></div>
+        <div class="step"><span class="n">2</span><span class="t">Логистика: отправка продукта блогеру, подтверждение получения.</span></div>
+        <div class="step"><span class="n">3</span><span class="t">Контрольный созвон/бриф — обязателен для блогеров без опыта рекламных интеграций.</span></div>
+        <div class="step"><span class="n">4</span><span class="t">Приём черновика, проверка по критериям: внятная речь, язык (казахский — для казахоязычного контента), подача и смысл, умение продавать, демонстрация продукта, динамичность. Для официальных интеграций — отдельно проверить наличие и читаемость маркировки «Реклама | MIXIT | ИП Нигай».</span></div>
+        <div class="step"><span class="n">5</span><span class="t">Правки и согласование финальной версии до публикации.</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Инструменты</h3>
+      <div class="tool-list"><span class="tool">Шаблон ТЗ</span><span class="tool">Критерии отбора блогеров — раздел «Контент, речь и продающие качества»</span><a class="tool" href="https://barter-box-server.onrender.com/" target="_blank" rel="noopener">Система фиксации работы</a></div>
+    </div>
+    <div class="callout warn"><b>Эскалация:</b> проверка и утверждение ТЗ — по регламенту согласования ТЗ (менеджер → тим-лид → руководитель по трём триггерам). Если блогер не вносит правки или срывает требования ТЗ — решение о продолжении или расторжении принимает руководитель.</div>
+  </section>
+
+  <!-- STAGE 6 -->
+  <section class="stage" id="stage-6">
+    <div class="stage-head"><span class="badge">6</span><h2>Публикация и контроль</h2></div>
+    <p class="stage-goal">Убедиться, что материал вышел вовремя и в согласованном виде.</p>
+    <div class="stage-meta">
+      <span class="role manager">Менеджер</span>
+      <span class="sla">Отклонение от даты в ТЗ — 0 дней, перенос только по согласованию*</span>
+    </div>
+    <div class="panel">
+      <h3>Шаги</h3>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><span class="t">Фиксация факта и времени публикации.</span></div>
+        <div class="step"><span class="n">2</span><span class="t">Проверка, что вышедший материал соответствует согласованной финальной версии (без самовольных правок), включая маркировку «Реклама | MIXIT | ИП Нигай» для официальных интеграций.</span></div>
+        <div class="step"><span class="n">3</span><span class="t">Для официальных интеграций — точечная проверка в течение срока размещения, что маркировка не удалена и не скрыта (по договору исполнитель не вправе её убирать).</span></div>
+        <div class="step"><span class="n">4</span><span class="t">Внесение факта публикации в планер «Инфлюенс-Пульс» и в систему фиксации работы (по конкретному блогеру).</span></div>
+      </div>
+    </div>
+    <div class="panel"><h3>Инструменты</h3><div class="tool-list"><span class="tool">Планер «Инфлюенс-Пульс»</span><a class="tool" href="https://barter-box-server.onrender.com/" target="_blank" rel="noopener">Система фиксации работы</a></div></div>
+    <div class="callout warn"><b>Эскалация:</b> срыв срока или публикация без согласования фиксируется как нарушение — влияет на решение о повторном размещении (этап 9).</div>
+  </section>
+
+  <!-- STAGE 7 -->
+  <section class="stage" id="stage-7">
+    <div class="stage-head"><span class="badge">7</span><h2>Приёмка отчётности и оценка эффективности</h2></div>
+    <p class="stage-goal">Оцифровать результат конкретной интеграции: охват, ER, CPV, продажи.</p>
+    <div class="stage-meta">
+      <span class="role manager">Менеджер</span>
+      <span class="sla">Не позднее 48 часов после публикации*</span>
+    </div>
+    <div class="panel">
+      <h3>Шаги</h3>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><span class="t">Запрос у блогера скриншотов охватов/инсайтов по вышедшей публикации.</span></div>
+        <div class="step"><span class="n">2</span><span class="t">Расчёт факта CPV = стоимость ÷ фактические просмотры.</span></div>
+        <div class="step"><span class="n">3</span><span class="t">Расчёт ER по факту через Apify (для Instagram) по формуле регламента критериев.</span></div>
+        <div class="step"><span class="n">4</span><span class="t">Сверка продаж/переходов по промокоду или QR-attribution.</span></div>
+        <div class="step"><span class="n">5</span><span class="t">Внесение показателей в CPV/ROMI-дэшборд, в планер и в карточку блогера в системе фиксации работы.</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Инструменты</h3>
+      <div class="tool-list"><span class="tool">Скриншоты инсайтов</span><span class="tool">Apify</span><span class="tool">QR-attribution / 1С</span><span class="tool">CPV/ROMI-дэшборд</span><a class="tool" href="https://barter-box-server.onrender.com/" target="_blank" rel="noopener">Система фиксации работы</a></div>
+    </div>
+    <div class="callout warn"><b>Эскалация:</b> факт заметно ниже гарантии или заявленных охватов на этапе отбора — фиксируется как повод для усиленной проверки при следующем размещении с этим блогером.</div>
+  </section>
+
+  <!-- STAGE 8 -->
+  <section class="stage" id="stage-8">
+    <div class="stage-head"><span class="badge">8</span><h2>Оплата</h2></div>
+    <p class="stage-goal">Закрыть обязательства перед блогером после подтверждённого выполнения условий.</p>
+    <div class="stage-meta">
+      <span class="role manager">Менеджер</span><span class="role fin">Нина (Битрикс)</span>
+      <span class="sla">5–10 рабочих дней после приёмки отчётности*</span>
+    </div>
+    <div class="panel">
+      <h3>Шаги</h3>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><span class="t">Подтверждение выполнения по ТЗ, срокам и гарантии просмотров.</span></div>
+        <div class="step"><span class="n">2</span><span class="t">Сбор полной информации для Нины: реквизиты блогера, сумма, тип оплаты — официальная (по договору) или неофициальная, подтверждающие документы/акт.</span></div>
+        <div class="step"><span class="n">3</span><span class="t">Заявка на оплату подаётся через Нину в Битрикс — маршрут один независимо от того, официальная это оплата или нет.</span></div>
+        <div class="step"><span class="n">4</span><span class="t">Оплата по реквизитам. Для зарубежных блогеров — по мере готовности отдельной платёжной инфраструктуры для международных выплат.</span></div>
+        <div class="step"><span class="n">5</span><span class="t">Закрытие акта выполненных работ, статус в системе фиксации работы меняется на «оплачено».</span></div>
+      </div>
+    </div>
+    <div class="panel"><h3>Инструменты</h3><div class="tool-list"><span class="tool">Битрикс</span><span class="tool">1С</span><a class="tool" href="https://barter-box-server.onrender.com/" target="_blank" rel="noopener">Система фиксации работы</a></div></div>
+    <div class="callout warn"><b>Эскалация:</b> спор по объёму или качеству выполненных работ, задержка оплаты по вине блогера (недобор гарантии без исправления) — решает тим-лид; нерешаемые споры поднимаются руководителю.</div>
+  </section>
+
+  <!-- STAGE 9 -->
+  <section class="stage" id="stage-9">
+    <div class="stage-head"><span class="badge">9</span><h2>Решение о повторном размещении</h2></div>
+    <p class="stage-goal">Определить, продолжаем ли сотрудничество, на тех же условиях или с изменениями.</p>
+    <div class="stage-meta">
+      <span class="role manager">Менеджер</span><span class="role tl">Тим-лид</span><span class="role lead">Руководитель</span>
+      <span class="sla">В течение недели после получения полных данных по кампании*</span>
+    </div>
+    <div class="panel">
+      <h3>Шаги</h3>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><span class="t">Оценка по критериям повторных размещений: продажи, просмотры, соблюдение ТЗ, сроки, CPV, отклик аудитории, коммуникация. История прошлых интеграций — в системе фиксации работы.</span></div>
+        <div class="step"><span class="n">2</span><span class="t">Классификация блогера в общей аналитике (BCG-матрица).</span></div>
+        <div class="step"><span class="n">3</span><span class="t">Решение принимает тим-лид: бронируем повторно на тех же условиях / приостанавливаем. Спорные случаи — на согласование руководителю. Кандидат на повышение трека — решение только руководителя.</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Инструменты</h3>
+      <div class="tool-list"><span class="tool">Критерии отбора блогеров — раздел 14</span><span class="tool">BCG-матрица</span><span class="tool">ROMI-дэшборд</span><a class="tool" href="https://barter-box-server.onrender.com/" target="_blank" rel="noopener">Система фиксации работы</a></div>
+    </div>
+    <div class="callout warn"><b>Эскалация:</b> повышение трека (переход в карманные блогеры или амбассадоры) решается только руководителем.</div>
+  </section>
+
+  <!-- STAGE 10 -->
+  <section class="stage" id="stage-10">
+    <div class="stage-head"><span class="badge">10</span><h2>Учёт и отчётность</h2></div>
+    <p class="stage-goal">Сделать результаты видимыми на каждом уровне иерархии без необходимости запрашивать их отдельно.</p>
+    <div class="stage-meta">
+      <span class="role manager">Менеджер</span><span class="role tl">Тим-лид</span><span class="role nina">Нина</span><span class="role lead">Руководитель</span>
+      <span class="sla">План — в чат до 10:00 · факт — в чат до 18:30 · срез — 15 и 30(31) числа</span>
+    </div>
+
+    <div class="panel">
+      <h3>Ежедневный учёт</h3>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><span class="t">Учёт по каждому блогеру ведётся в CRM (кандидаты) или в системе фиксации работы (подтверждённые сотрудничества) — по ссылкам, не в отдельных файлах.</span></div>
+        <div class="step"><span class="n">2</span><span class="t">План на день — в рабочий чат до 10:00.</span></div>
+        <div class="step"><span class="n">3</span><span class="t">Утренняя планёрка в 10:00 — там же отчётность по факту предыдущего дня.</span></div>
+        <div class="step"><span class="n">4</span><span class="t">Факт по дню — в рабочий чат до 18:30.</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Срез: середина и конец месяца</h3>
+      <p>Каждое 15-е и 30(31)-е число — срез по своей работе и эффективности: промежуточные результаты в середине месяца, итоговые — в конце. Отдельно — срез по блогерам.</p>
+      <div class="tool-list">
+        <span class="tool">Стоимость просмотра (CPV)</span><span class="tool">Охваты</span><span class="tool">Кол-во блогеров</span><span class="tool">Кол-во продаж</span><span class="tool">ROAS</span>
+      </div>
+      <p style="margin-top:10px;margin-bottom:0;">Формат — свободная форма с демонстрацией экрана: показать цифры и сформулировать выводы, а не просто прислать таблицу.</p>
+    </div>
+
+    <div class="panel">
+      <h3>Каскад защиты среза</h3>
+      <p style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0;"><span class="role manager">Менеджер</span> → <span class="role tl">Тим-лид</span> → <span class="role nina">Нина</span> → <span class="role lead">Руководитель</span></p>
+    </div>
+
+    <div class="panel">
+      <h3>Инструменты</h3>
+      <div class="tool-list">
+        <a class="tool" href="https://blogger-crm.onrender.com/" target="_blank" rel="noopener">CRM блогеров</a>
+        <a class="tool" href="https://barter-box-server.onrender.com/" target="_blank" rel="noopener">Система фиксации работы</a>
+        <span class="tool">Рабочий чат</span>
+        <span class="tool">CPV/ROMI-дэшборд</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h3>Отличия по трекам</h3>
+    <div class="track-note"><b>Карманные (in-house) блогеры</b> — цикл повторяется на фиксированной ежемесячной основе, а не разово: этапы 1–3 сжаты (условия зафиксированы контрактом на период), этапы 5–10 повторяются на каждую публикацию по графику.</div>
+    <div class="track-note"><b>Амбассадоры</b> — этапы 3–4 отличаются существенно: вместо разовой цены — поэтапные базовые ставки, KPI по кликам и бонусные уровни; решения по условиям контракта — на уровне руководителя с самого начала, а не как эскалация.</div>
+    <div class="track-note"><b>Крупные платные блогеры</b> — общий цикл тот же, но согласование на этапах 3 и 4 по умолчанию проходит через тим-лида и руководителя из-за объёма бюджета.</div>
+    <p>Значения со звёздочкой (*) — предложенные сроки, требуют однократного подтверждения с руководителем, дальше применяются как стандарт SLA. Документ работает в связке с «Критериями отбора блогеров» (этапы 2, 5, 9) — при обновлении порогов проверить, не разошлись ли ссылки на конкретные значения (10 000 охвата, 5 ₸ CPV и т.д.).</p>
+  </footer>
+
+</div>

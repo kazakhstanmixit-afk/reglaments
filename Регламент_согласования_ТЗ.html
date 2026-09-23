@@ -1,0 +1,246 @@
+<title>Регламент согласования ТЗ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6F3; --surface:#FFFFFF; --surface-2:#F3EBE7;
+    --ink:#2B2320; --ink-soft:#7C6E68; --ink-faint:#A99C96; --line:#E7DDD7;
+    --accent:#A8425A; --accent-ink:#6E2436; --accent-soft:#F3DEE2;
+    --good:#3D7A52; --good-soft:#E2F0E5; --good-line:#BFDDC7;
+    --warn:#93600F; --warn-soft:#F5E9D3; --warn-line:#E3CB98;
+    --bad:#A5372F; --bad-soft:#F7E1DF; --bad-line:#E7BBB6;
+    --assist:#2F6C90; --assist-soft:#DFEAF1; --assist-line:#B9D3E2;
+    --lead:#5B4B8A; --lead-soft:#E7E1F5; --lead-line:#CFC2E9;
+    --shadow: 0 1px 2px rgba(43,35,32,.04), 0 8px 24px -12px rgba(43,35,32,.12);
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#221C1A; --surface:#2A2321; --surface-2:#33291F;
+      --ink:#F3EAE5; --ink-soft:#BDAEA7; --ink-faint:#8A7C76; --line:#453A35;
+      --accent:#E28FA3; --accent-ink:#F7DBE2; --accent-soft:#3F2530;
+      --good:#8BCC9D; --good-soft:#23342A; --good-line:#3A4E3E;
+      --warn:#E7B563; --warn-soft:#3A2E18; --warn-line:#5A4726;
+      --bad:#E8938C; --bad-soft:#3D2624; --bad-line:#5C3733;
+      --assist:#8FC1E0; --assist-soft:#213240; --assist-line:#3A5062;
+      --lead:#C3B2E8; --lead-soft:#332A4A; --lead-line:#4B3E6B;
+      --shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#221C1A; --surface:#2A2321; --surface-2:#33291F;
+    --ink:#F3EAE5; --ink-soft:#BDAEA7; --ink-faint:#8A7C76; --line:#453A35;
+    --accent:#E28FA3; --accent-ink:#F7DBE2; --accent-soft:#3F2530;
+    --good:#8BCC9D; --good-soft:#23342A; --good-line:#3A4E3E;
+    --warn:#E7B563; --warn-soft:#3A2E18; --warn-line:#5A4726;
+    --bad:#E8938C; --bad-soft:#3D2624; --bad-line:#5C3733;
+    --assist:#8FC1E0; --assist-soft:#213240; --assist-line:#3A5062;
+    --lead:#C3B2E8; --lead-soft:#332A4A; --lead-line:#4B3E6B;
+    --shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.5;padding-inline:20px;padding-block:28px 64px;}
+  .wrap{max-width:900px;margin:0 auto;}
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;text-wrap:balance;color:var(--ink);margin:0;}
+  code, .mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;}
+
+  header.top{display:flex;flex-direction:column;gap:14px;padding-bottom:26px;margin-bottom:30px;border-bottom:1px solid var(--line);}
+  .eyebrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);}
+  .tag{background:var(--accent-soft);color:var(--accent-ink);padding:3px 10px;border-radius:999px;font-weight:700;letter-spacing:.04em;}
+  .tag.outline{background:transparent;border:1px solid var(--line);color:var(--ink-soft);}
+  header.top h1{font-size:clamp(28px,4.5vw,38px);line-height:1.1;}
+  header.top p.lede{margin:0;color:var(--ink-soft);font-size:16px;max-width:64ch;}
+
+  /* hierarchy chain */
+  .chain{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin-top:6px;}
+  .chain .node{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 15px;box-shadow:var(--shadow);font-weight:700;font-size:14px;}
+  .chain .node.mgr{color:var(--accent-ink);}
+  .chain .node.lead{color:var(--assist);}
+  .chain .node.chief{color:var(--lead);}
+  .chain .arrow{padding:0 10px;color:var(--ink-faint);font-size:18px;}
+  @media (max-width:600px){.chain{flex-direction:column;align-items:flex-start;}.chain .arrow{transform:rotate(90deg);padding:2px 0;}}
+
+  section.block{margin-bottom:38px;}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .sec-num{font-family:'IBM Plex Mono';font-size:13px;color:var(--accent);font-weight:600;}
+  .sec-head h2{font-size:22px;}
+  .sec-sub{color:var(--ink-soft);font-size:14.5px;margin:6px 0 16px;max-width:68ch;}
+
+  .steps{display:flex;flex-direction:column;gap:10px;}
+  .step{display:grid;grid-template-columns:34px 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);}
+  .step .n{font-family:'IBM Plex Mono';font-weight:700;color:var(--accent);font-size:15px;background:var(--accent-soft);border-radius:9px;height:28px;width:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .step .body b{display:block;font-size:14.5px;margin-bottom:2px;}
+  .step .body span{font-size:13.5px;color:var(--ink-soft);}
+  .step.branch{border-left:3px solid var(--warn-line);}
+  .step.ok{border-left:3px solid var(--good-line);}
+
+  .pillar{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow);}
+  .pillar .ph{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .pillar .pnum{font-family:'IBM Plex Mono';font-weight:700;color:var(--surface);background:var(--accent);border-radius:8px;height:26px;width:26px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+  .pillar h3{font-size:16px;}
+  .pillar p{margin:0 0 8px;font-size:14.5px;}
+  .pillar p:last-child{margin-bottom:0;}
+  .example{background:var(--surface-2);border-radius:9px;padding:9px 12px;font-size:13.5px;color:var(--ink-soft);}
+  .example b{color:var(--ink);font-weight:600;}
+
+  .callout{border-radius:var(--radius);padding:18px 20px;margin-bottom:14px;border:1px solid;}
+  .callout.warn{background:var(--warn-soft);border-color:var(--warn-line);}
+  .callout h3{font-family:'Manrope';font-size:14px;text-transform:uppercase;letter-spacing:.04em;font-weight:800;margin-bottom:10px;color:var(--warn);}
+  .callout ul{margin:0;padding-left:20px;font-size:14.5px;}
+  .callout li{margin-bottom:6px;}
+  .callout li:last-child{margin-bottom:0;}
+
+  .scorecard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+  .sc-row{display:grid;grid-template-columns:1.6fr 2fr .8fr 1fr;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);align-items:center;font-size:13.6px;}
+  .sc-row.head{background:var(--surface-2);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);font-weight:700;}
+  .sc-row:last-child{border-bottom:none;}
+  .sc-row .box{border:1px dashed var(--line);border-radius:6px;height:22px;}
+  @media (max-width:640px){
+    .sc-row{grid-template-columns:1fr;gap:4px;padding:12px 14px;}
+    .sc-row.head{display:none;}
+    .sc-row > div::before{content attr(data-lbl);display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);font-weight:700;}
+  }
+
+  table.data{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+  table.data th, table.data td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);font-size:13.8px;vertical-align:top;}
+  table.data th{background:var(--surface-2);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);font-weight:700;}
+  table.data tr:last-child td{border-bottom:none;}
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+  footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-faint);font-size:12.5px;}
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">
+      <span class="tag">MIXIT KZ · Influencer Marketing</span>
+      <span class="tag outline">Согласование ТЗ</span>
+    </div>
+    <h1>Регламент согласования ТЗ</h1>
+    <p class="lede">Единый каркас проверки: по каким столпам менеджер и тим-лид проверяют творческое ТЗ перед тем, как оно уходит блогеру, и когда решение всё же требует вас лично.</p>
+    <div class="chain">
+      <span class="node mgr">Менеджер</span><span class="arrow">→</span>
+      <span class="node lead">Тим-лид</span><span class="arrow">→</span>
+      <span class="node chief">Руководитель</span>
+    </div>
+  </header>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Маршрут согласования</h2></div>
+    <p class="sec-sub">По умолчанию ТЗ утверждает тим-лид самостоятельно. К руководителю поднимается только при срабатывании одного из трёх триггеров (раздел 03) — это не рядовой шаг, а исключение.</p>
+    <div class="steps">
+      <div class="step ok"><span class="n">1</span><div class="body"><b>Менеджер проверяет библиотеку алгоритмов</b><span>Есть ли уже готовый алгоритм под этот продукт (например, «Контур-палетка 3-в-1»)? Если да — переходит к шагу 2. Если нет — сразу к эскалации (раздел 03, триггер «новый продукт»).</span></div></div>
+      <div class="step ok"><span class="n">2</span><div class="body"><b>Менеджер адаптирует ТЗ под блогера</b><span>Берёт готовый алгоритм, подставляет конкретный продукт, хуки под формат подачи этого блогера, проверяет ТЗ по столпам (раздел 02) — самопроверка.</span></div></div>
+      <div class="step ok"><span class="n">3</span><div class="body"><b>Передача тим-лиду</b><span>Тим-лид прогоняет ТЗ по чек-листу столпов (раздел 04) и проверяет, не сработал ли один из триггеров эскалации.</span></div></div>
+      <div class="step branch"><span class="n">4</span><div class="body"><b>Триггеров нет → тим-лид утверждает сам</b><span>ТЗ уходит блогеру. Решение и чек-лист сохраняются в карточке кампании.</span></div></div>
+      <div class="step branch"><span class="n">5</span><div class="body"><b>Сработал триггер → эскалация вам лично</b><span>Тим-лид передаёт ТЗ с пометкой, какой именно триггер сработал, и кратким обоснованием. Решение — утвердить / доработать алгоритм / вернуть на переработку.</span></div></div>
+      <div class="step ok"><span class="n">6</span><div class="body"><b>Если это был новый алгоритм — в библиотеку</b><span>После утверждения новый алгоритм оформляется по шаблону (раздел 05) и пополняет общую библиотеку — следующий раз по этому продукту эскалация уже не нужна.</span></div></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Столпы ТЗ</h2></div>
+    <p class="sec-sub">Универсальный каркас, применимый к любой категории продукта — не только к видео-тьюториалам. Примеры даны по алгоритму «Контур-палетка 3-в-1».</p>
+
+    <div class="pillar">
+      <div class="ph"><span class="pnum">1</span><h3>Хук (первая секунда)</h3></div>
+      <p>Считывается без звука — текстом на экране. Два рабочих типа: формула-выгода («1 продукт = результат») или закрытие боли/скепсиса аудитории к рекламе.</p>
+      <div class="example"><b>Пример из алгоритма:</b> «обычно не верю рекламе у блогеров, но тут решила проверить сама» — хук на скепсисе, с вердиктом в конце, который его закрывает.</div>
+    </div>
+
+    <div class="pillar">
+      <div class="ph"><span class="pnum">2</span><h3>Reveal продукта</h3></div>
+      <p>Крупный план продукта в первые секунды — упаковка, все варианты/оттенки видны, не общий план.</p>
+      <div class="example"><b>Пример:</b> палетка открыта крупным планом в первые 4 секунды, видно все 3 сектора.</div>
+    </div>
+
+    <div class="pillar">
+      <div class="ph"><span class="pnum">3</span><h3>Демонстрация / порядок использования</h3></div>
+      <p>Соответствует реальной технологии применения продукта — шаги в правильном порядке, а не хаотично. Инструмент/кисть периодически крупным планом, с возвратом к продукту в руке.</p>
+      <div class="example"><b>Пример:</b> контур → румяна → хайлайтер, с указанием точных зон нанесения на каждом шаге.</div>
+    </div>
+
+    <div class="pillar">
+      <div class="ph"><span class="pnum">4</span><h3>Звук</h3></div>
+      <p>Трендовый звук с синхронизацией губ/мимики (увеличивает досмотры за счёт продвижения площадкой) либо естественная говорящая голова — не безличная закадровая озвучка.</p>
+    </div>
+
+    <div class="pillar">
+      <div class="ph"><span class="pnum">5</span><h3>Хронометраж</h3></div>
+      <p>Соответствует формату. Отклонение в сторону увеличения допустимо только при быстром темпе и динамичном монтаже — без этого длинное видео теряет досмотр.</p>
+      <div class="example"><b>Пример:</b> 26–30 сек оптимально для линейного тьюториала; до 55–58 сек — только при разговорной подаче под тренд-звук.</div>
+    </div>
+
+    <div class="pillar">
+      <div class="ph"><span class="pnum">6</span><h3>Финальный кадр — результат</h3></div>
+      <p>Показывает эффект применения продукта, а не обрывается на процессе.</p>
+    </div>
+
+    <div class="pillar">
+      <div class="ph"><span class="pnum">7</span><h3>CTA и артикул</h3></div>
+      <p>Текст на экране («Артикул в описании» или аналог) + артикул обязательно продублирован в подписи к посту.</p>
+    </div>
+
+    <div class="pillar">
+      <div class="ph"><span class="pnum">8</span><h3>Вариант подачи и хуки под него</h3></div>
+      <p>Если формат предполагает конкретный стиль подачи (например, гринкаст или сравнение/апелляция к известным личностям) — под него в ТЗ должны быть готовые формулировки хука, а не общая инструкция «сделай хук».</p>
+      <div class="example"><b>Пример:</b> подача «через звёзд» — хук со скриншотом сторис/рилс медийного человека как доказательство + переход-мотивация («решила проверить/затестить») + вердикт перед результатом, закрывающий скепсис из хука.</div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Когда эскалировать лично вам</h2></div>
+    <div class="callout warn">
+      <h3>Триггеры эскалации от тим-лида</h3>
+      <ul>
+        <li><b>Новый продукт без готового алгоритма</b> — библиотека не покрывает эту категорию, нужен разбор рабочих роликов и разработка алгоритма с нуля</li>
+        <li><b>Крупный или имиджевый блогер, либо бюджет выше обычного</b> — цена ошибки высокая, нужен личный контроль</li>
+        <li><b>Отклонение от стандартного хронометража или формата</b> — тим-лид или менеджер хочет выйти за рамки типового алгоритма</li>
+      </ul>
+    </div>
+    <p class="sec-sub" style="margin-top:0;">Во всех остальных случаях тим-лид утверждает ТЗ самостоятельно — поднимать типовые согласования вам лично не нужно.</p>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Чек-лист тим-лида</h2></div>
+    <p class="sec-sub">Заполняется на каждое ТЗ до отправки блогеру. Любой невыполненный жёсткий столп (1–4, 6–7) — доработка у менеджера, не эскалация.</p>
+    <div class="scorecard">
+      <div class="sc-row head"><span>Столп</span><span>Комментарий</span><span>Ок?</span><span>Триггер эскалации</span></div>
+      <div class="sc-row"><div data-lbl="Столп">1. Хук</div><div data-lbl="Комментарий" class="box"></div><div data-lbl="Ок?" class="box"></div><div data-lbl="Триггер" class="box"></div></div>
+      <div class="sc-row"><div data-lbl="Столп">2. Reveal продукта</div><div data-lbl="Комментарий" class="box"></div><div data-lbl="Ок?" class="box"></div><div data-lbl="Триггер" class="box"></div></div>
+      <div class="sc-row"><div data-lbl="Столп">3. Порядок демонстрации</div><div data-lbl="Комментарий" class="box"></div><div data-lbl="Ок?" class="box"></div><div data-lbl="Триггер" class="box"></div></div>
+      <div class="sc-row"><div data-lbl="Столп">4. Звук</div><div data-lbl="Комментарий" class="box"></div><div data-lbl="Ок?" class="box"></div><div data-lbl="Триггер" class="box"></div></div>
+      <div class="sc-row"><div data-lbl="Столп">5. Хронометраж</div><div data-lbl="Комментарий" class="box"></div><div data-lbl="Ок?" class="box"></div><div data-lbl="Триггер" class="box"></div></div>
+      <div class="sc-row"><div data-lbl="Столп">6. Финальный кадр</div><div data-lbl="Комментарий" class="box"></div><div data-lbl="Ок?" class="box"></div><div data-lbl="Триггер" class="box"></div></div>
+      <div class="sc-row"><div data-lbl="Столп">7. CTA / артикул</div><div data-lbl="Комментарий" class="box"></div><div data-lbl="Ок?" class="box"></div><div data-lbl="Триггер" class="box"></div></div>
+      <div class="sc-row"><div data-lbl="Столп">8. Подача и хуки</div><div data-lbl="Комментарий" class="box"></div><div data-lbl="Ок?" class="box"></div><div data-lbl="Триггер" class="box"></div></div>
+      <div class="sc-row"><div data-lbl="Столп">Продукт есть в библиотеке?</div><div data-lbl="Комментарий" class="box"></div><div data-lbl="Ок?" class="box"></div><div data-lbl="Триггер" class="box"></div></div>
+      <div class="sc-row"><div data-lbl="Столп">Блогер/бюджет — стандартный?</div><div data-lbl="Комментарий" class="box"></div><div data-lbl="Ок?" class="box"></div><div data-lbl="Триггер" class="box"></div></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Формат записи алгоритма в библиотеку</h2></div>
+    <p class="sec-sub">Когда руководитель утверждает новый алгоритм — он оформляется по этому шаблону, чтобы дальше им могли пользоваться тим-лиды и менеджеры без повторной эскалации.</p>
+    <div class="table-scroll">
+      <table class="data">
+        <tr><th>Поле</th><th>Содержание</th></tr>
+        <tr><td>Название</td><td>Тип продукта + формат («Единый алгоритм ролика: контур-палетка 3-в-1»)</td></tr>
+        <tr><td>База</td><td>На основе разбора скольких роликов составлен (конкуренты + собственные успешные кейсы)</td></tr>
+        <tr><td>Формула по секундам</td><td>Таблица: блок → тайминг → что делать, от хука до CTA</td></tr>
+        <tr><td>Звук</td><td>Допустимые варианты (говорящая голова / тренд-звук с синхронизацией)</td></tr>
+        <tr><td>Хронометраж</td><td>Оптимальный диапазон + условие, при котором можно выйти за его пределы</td></tr>
+        <tr><td>Чек-лист для блогера</td><td>Короткий список пунктов, который отправляется блогеру вместе с ТЗ</td></tr>
+        <tr><td>Варианты подачи</td><td>Готовые формулировки хуков под разные стили (например: гринкаст / через звёзд), с шагами по секундам под каждый</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    Библиотека алгоритмов пополняется по итогам каждой эскалации по триггеру «новый продукт» — задача тим-лида после утверждения оформить алгоритм по разделу 05 и разослать менеджерам направления. Документ работает в связке с «Регламентом работы с блогером» (этап 5 — ТЗ и продакшн) и «Критериями отбора блогеров» (раздел «Контент, речь и продающие качества»).
+  </footer>
+
+</div>

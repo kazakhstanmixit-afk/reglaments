@@ -1,0 +1,525 @@
+<title>Критерии отбора блогеров</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6F3;
+    --surface:#FFFFFF;
+    --surface-2:#F3EBE7;
+    --ink:#2B2320;
+    --ink-soft:#7C6E68;
+    --ink-faint:#A99C96;
+    --line:#E7DDD7;
+    --accent:#A8425A;
+    --accent-ink:#6E2436;
+    --accent-soft:#F3DEE2;
+    --good:#3D7A52;
+    --good-soft:#E2F0E5;
+    --good-line:#BFDDC7;
+    --warn:#93600F;
+    --warn-soft:#F5E9D3;
+    --warn-line:#E3CB98;
+    --bad:#A5372F;
+    --bad-soft:#F7E1DF;
+    --bad-line:#E7BBB6;
+    --shadow: 0 1px 2px rgba(43,35,32,.04), 0 8px 24px -12px rgba(43,35,32,.12);
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#221C1A;
+      --surface:#2A2321;
+      --surface-2:#33291F;
+      --ink:#F3EAE5;
+      --ink-soft:#BDAEA7;
+      --ink-faint:#8A7C76;
+      --line:#453A35;
+      --accent:#E28FA3;
+      --accent-ink:#F7DBE2;
+      --accent-soft:#3F2530;
+      --good:#8BCC9D;
+      --good-soft:#23342A;
+      --good-line:#3A4E3E;
+      --warn:#E7B563;
+      --warn-soft:#3A2E18;
+      --warn-line:#5A4726;
+      --bad:#E8938C;
+      --bad-soft:#3D2624;
+      --bad-line:#5C3733;
+      --shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#221C1A;
+    --surface:#2A2321;
+    --surface-2:#33291F;
+    --ink:#F3EAE5;
+    --ink-soft:#BDAEA7;
+    --ink-faint:#8A7C76;
+    --line:#453A35;
+    --accent:#E28FA3;
+    --accent-ink:#F7DBE2;
+    --accent-soft:#3F2530;
+    --good:#8BCC9D;
+    --good-soft:#23342A;
+    --good-line:#3A4E3E;
+    --warn:#E7B563;
+    --warn-soft:#3A2E18;
+    --warn-line:#5A4726;
+    --bad:#E8938C;
+    --bad-soft:#3D2624;
+    --bad-line:#5C3733;
+    --shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+    line-height:1.5;
+    padding-inline:20px;
+    padding-block:28px 64px;
+  }
+  .wrap{max-width:860px;margin:0 auto;}
+
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;text-wrap:balance;color:var(--ink);margin:0;}
+  a{color:var(--accent-ink);}
+
+  code, .mono, .num, td.num, .thresh{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;}
+
+  /* ---------- header ---------- */
+  header.top{
+    display:flex;flex-direction:column;gap:14px;
+    padding-bottom:26px;margin-bottom:30px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+    font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  .tag{
+    background:var(--accent-soft);color:var(--accent-ink);
+    padding:3px 10px;border-radius:999px;font-weight:700;letter-spacing:.04em;
+  }
+  .tag.outline{background:transparent;border:1px solid var(--line);color:var(--ink-soft);}
+  header.top h1{font-size:clamp(28px,4.5vw,38px);line-height:1.1;}
+  header.top p.lede{margin:0;color:var(--ink-soft);font-size:16px;max-width:60ch;}
+  .meta-row{display:flex;flex-wrap:wrap;gap:18px;margin-top:4px;font-size:13.5px;color:var(--ink-soft);}
+  .meta-row b{color:var(--ink);font-weight:700;}
+
+  /* ---------- section shell ---------- */
+  section{margin-bottom:40px;}
+  section.block{scroll-margin-top:16px;}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;}
+  .sec-num{font-family:'IBM Plex Mono';font-size:13px;color:var(--accent);font-weight:600;}
+  .sec-head h2{font-size:22px;}
+  .sec-sub{color:var(--ink-soft);font-size:14.5px;margin:6px 0 0;max-width:65ch;}
+
+  /* ---------- quick reference table ---------- */
+  .quickref{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden;
+  }
+  .qr-row{
+    display:grid;grid-template-columns:1.5fr 1fr auto;gap:10px;
+    padding:13px 18px;border-bottom:1px solid var(--line);align-items:center;
+  }
+  .qr-row:last-child{border-bottom:none;}
+  .qr-row.head{background:var(--surface-2);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);font-weight:700;}
+  .qr-crit{font-weight:600;font-size:14.5px;}
+  .qr-crit small{display:block;font-weight:400;color:var(--ink-soft);font-size:12.5px;margin-top:1px;}
+  .qr-val{font-family:'IBM Plex Mono';font-size:14.5px;font-weight:600;color:var(--ink);}
+  @media (max-width:560px){
+    .qr-row{grid-template-columns:1fr;gap:4px;}
+    .qr-row.head{display:none;}
+    .qr-val{font-size:13.5px;}
+  }
+
+  .pill{
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;
+    padding:4px 9px;border-radius:999px;white-space:nowrap;
+  }
+  .pill.hard{background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad-line);}
+  .pill.soft{background:var(--warn-soft);color:var(--warn);border:1px solid var(--warn-line);}
+  .pill.ok{background:var(--good-soft);color:var(--good);border:1px solid var(--good-line);}
+
+  /* ---------- criterion cards ---------- */
+  .crit-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow);
+  }
+  .crit-card h3{font-size:16.5px;font-weight:600;margin-bottom:8px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;}
+  .crit-card p{margin:0 0 8px;font-size:14.5px;color:var(--ink);}
+  .crit-card p:last-child{margin-bottom:0;}
+  .crit-card .why{color:var(--ink-soft);font-size:13.5px;}
+  .crit-card .why b{color:var(--ink-soft);}
+  .threshold-line{
+    display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;
+    font-family:'IBM Plex Mono';font-size:14px;color:var(--accent-ink);font-weight:600;
+    margin-bottom:8px;
+  }
+  .threshold-line .lbl{font-family:'Manrope';color:var(--ink-soft);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;}
+
+  /* ---------- generic table ---------- */
+  table.data{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+  table.data th, table.data td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);font-size:14px;}
+  table.data th{background:var(--surface-2);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);font-weight:700;}
+  table.data tr:last-child td{border-bottom:none;}
+  table.data td.num{font-weight:600;}
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+  /* ---------- steps ---------- */
+  .steps{display:flex;flex-direction:column;gap:10px;}
+  .step{display:grid;grid-template-columns:34px 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);}
+  .step .n{font-family:'IBM Plex Mono';font-weight:700;color:var(--accent);font-size:15px;background:var(--accent-soft);border-radius:9px;height:28px;width:28px;display:flex;align-items:center;justify-content:center;}
+  .step .body b{display:block;font-size:14.5px;margin-bottom:2px;}
+  .step .body span{font-size:13.5px;color:var(--ink-soft);}
+
+  /* ---------- callouts ---------- */
+  .callout{border-radius:var(--radius);padding:18px 20px;margin-bottom:14px;border:1px solid;}
+  .callout.bad{background:var(--bad-soft);border-color:var(--bad-line);}
+  .callout.warn{background:var(--warn-soft);border-color:var(--warn-line);}
+  .callout h3{font-family:'Manrope';font-size:14px;text-transform:uppercase;letter-spacing:.04em;font-weight:800;margin-bottom:10px;}
+  .callout.bad h3{color:var(--bad);}
+  .callout.warn h3{color:var(--warn);}
+  .callout ul{margin:0;padding-left:20px;font-size:14.5px;}
+  .callout li{margin-bottom:6px;}
+  .callout li:last-child{margin-bottom:0;}
+
+  /* ---------- scorecard ---------- */
+  .scorecard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+  .sc-row{display:grid;grid-template-columns:2fr 1.1fr 1fr .9fr;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);align-items:center;font-size:13.8px;}
+  .sc-row.head{background:var(--surface-2);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);font-weight:700;}
+  .sc-row:last-child{border-bottom:none;}
+  .sc-row .fact-box{border:1px dashed var(--line);border-radius:6px;height:22px;}
+  .sc-row .status-box{border:1px dashed var(--line);border-radius:6px;height:22px;}
+  @media (max-width:620px){
+    .sc-row{grid-template-columns:1fr;gap:4px;padding:12px 14px;}
+    .sc-row.head{display:none;}
+    .sc-row > div::before{content attr(data-lbl);display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);font-weight:700;}
+  }
+
+  footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-faint);font-size:12.5px;}
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">
+      <span class="tag">MIXIT KZ · Influencer Marketing</span>
+      <span class="tag outline">Мелкие платные блогеры</span>
+      <span class="tag outline">Instagram + TikTok</span>
+    </div>
+    <h1>Критерии отбора блогеров</h1>
+    <p class="lede">Рабочий чек-лист для менеджеров: по каким порогам и признакам оценивать блогера на этапе первичного скрининга, и по каким — принимать решение о повторном размещении после первой интеграции.</p>
+    <div class="meta-row">
+      <span>Проверка аудитории: <b>LiveDune / trendHERO</b> + скриншоты встроенной статистики</span>
+      <span>Ниша: <b>бьюти, лайфстайл, женская ЦА</b></span>
+    </div>
+  </header>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Быстрые пороги</h2></div>
+    <p class="sec-sub">Если блогер не проходит хотя бы один жёсткий порог — по умолчанию отказ без эскалации. Порог со звёздочкой (*) — предложенное значение, уточните и зафиксируйте с руководителем один раз, затем считайте окончательным.</p>
+
+    <div class="quickref">
+      <div class="qr-row head"><span>Критерий</span><span>Порог</span><span>Тип</span></div>
+
+      <div class="qr-row"><span class="qr-crit">Охват<small>среднее по Reels/TikTok за последние 10 видео — основной порог</small></span><span class="qr-val">от 10 000</span><span class="pill hard">жёсткий</span></div>
+      <div class="qr-row"><span class="qr-crit">Подписчики (ПДП)<small>вторичный порог — см. раздел 02</small></span><span class="qr-val">от 5 000</span><span class="pill soft">гибкий</span></div>
+      <div class="qr-row"><span class="qr-crit">Просмотры на рекламном ролике<small>гарантия, фиксируется в ТЗ</small></span><span class="qr-val">от 10 000</span><span class="pill hard">жёсткий</span></div>
+      <div class="qr-row"><span class="qr-crit">ER (engagement rate)<small>считается через Apify, см. раздел 02</small></span><span class="qr-val">от 3%</span><span class="pill hard">жёсткий</span></div>
+      <div class="qr-row"><span class="qr-crit">CPV<small>стоимость / гарантированные просмотры</small></span><span class="qr-val">от 5 ₸*</span><span class="pill soft">на согласование</span></div>
+      <div class="qr-row"><span class="qr-crit">География аудитории — Казахстан</span><span class="qr-val">от 60%</span><span class="pill hard">жёсткий</span></div>
+      <div class="qr-row"><span class="qr-crit">Аудитория — женщины</span><span class="qr-val">от 60%</span><span class="pill hard">жёсткий</span></div>
+      <div class="qr-row"><span class="qr-crit">Аудитория — возраст 18–35*</span><span class="qr-val">от 55%</span><span class="pill soft">гибкий</span></div>
+      <div class="qr-row"><span class="qr-crit">Масс-фолловеры / боты<small>по LiveDune / trendHERO</small></span><span class="qr-val">не более 30%*</span><span class="pill hard">жёсткий</span></div>
+      <div class="qr-row"><span class="qr-crit">Возраст аккаунта</span><span class="qr-val">от 6 мес.</span><span class="pill soft">гибкий</span></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Охват и активность</h2></div>
+    <p class="sec-sub">Смотрим не на пиковый пост, а на стабильность за последние 10 публикаций — разовый вирусный ролик не делает блогера подходящим.</p>
+
+    <div class="crit-card">
+      <h3>Охват — основной порог <span class="pill hard">жёсткий</span></h3>
+      <div class="threshold-line"><span class="lbl">Порог</span> средний охват / просмотры на Reels-TikTok ≥ 10 000</div>
+      <p>Смотрите среднее значение за последние 10 видео, а не лучший показатель за всё время. Если разброс между роликами больше чем в 3 раза — это повод проверить аккаунт вручную, а не просто взять среднее. Это главный порог отбора — применяется в первую очередь, до подписчиков.</p>
+      <p class="why"><b>Зачем:</b> охват ниже порога делает интеграцию нерентабельной по CPV независимо от цены блогера.</p>
+    </div>
+
+    <div class="crit-card">
+      <h3>Подписчики — вторичный порог <span class="pill soft">гибкий</span></h3>
+      <div class="threshold-line"><span class="lbl">Ориентир</span> от 5 000 подписчиков</div>
+      <p>Порог по подписчикам — не жёсткий: блогера с числом подписчиков меньше 5 000 не отклоняем автоматически, если средний охват уже подтверждённо от 10 000 (частая ситуация при попадании в рекомендации/эксплор). И наоборот — 5 000+ подписчиков не спасают блогера, если охват ниже 10 000.</p>
+    </div>
+
+    <div class="crit-card">
+      <h3>ER — вовлечённость <span class="pill hard">жёсткий</span></h3>
+      <div class="threshold-line"><span class="lbl">Порог</span> ER ≥ 3%</div>
+      <div class="threshold-line"><span class="lbl">Формула (Instagram)</span> ER = (реакции ÷ количество постов) ÷ подписчики × 100</div>
+      <p><b>Обязательный способ расчёта для Instagram — через Apify</b> (apify.com): актор <code>apify/instagram-reel-scraper</code> выгружает реакции по последним Reels, актор <code>apify/instagram-profile-scraper</code> — число подписчиков. Менеджер выгружает эти цифры и передаёт их для расчёта — итоговое значение ER считает Клод по формуле выше. Видео-инструкция по подсчёту: <a href="https://www.loom.com/share/011f34ffc04045bc8b49b673d8880a9c" target="_blank" rel="noopener">loom.com/share/011f34ffc04045bc8b49b673d8880a9c</a>.</p>
+      <p>Для TikTok, пока отдельного актора нет: ER = (лайки + комментарии + репосты) ÷ просмотры, по последним 10 публикациям.</p>
+      <p class="why"><b>Красный флаг:</b> ER стабильно выше 12–15% при крупной аудитории — часто признак накрутки лайков, а не живого интереса. Проверяйте качество комментариев отдельно (раздел 04).</p>
+    </div>
+
+    <div class="crit-card">
+      <h3>Просмотры на рекламном ролике <span class="pill hard">жёсткий</span></h3>
+      <div class="threshold-line"><span class="lbl">Гарантия</span> от 10 000 просмотров на каждом оплаченном видео</div>
+      <p>Фиксируется в ТЗ как гарантированный минимум. Если факт ниже гарантии — по договору предусмотрен либо перевыпуск ролика, либо частичный возврат/зачёт в счёт следующей интеграции.</p>
+    </div>
+
+    <div class="crit-card">
+      <h3>Частота публикаций и возраст аккаунта <span class="pill soft">гибкий</span></h3>
+      <div class="threshold-line"><span class="lbl">Порог</span> ≥ 2–3 публикации в неделю · аккаунту от 6 месяцев</div>
+      <p>Свежесозданные аккаунты (младше полугода) с быстрым набором подписчиков — частый признак накрутки под конкретный сезон рекламных размещений. Рассматриваем только с усиленной проверкой по разделу 04.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Аудитория</h2></div>
+    <p class="sec-sub">Данные берём из LiveDune / trendHERO и сверяем со скриншотом встроенной статистики блогера — расхождение больше 10–15 п.п. между источниками — повод для ручной проверки.</p>
+
+    <div class="crit-card">
+      <h3>География <span class="pill hard">жёсткий</span></h3>
+      <div class="threshold-line"><span class="lbl">Порог</span> Казахстан ≥ 60% аудитории</div>
+      <p>Смотрим страну и, где доступно, топ-города — важно понимать долю Алматы/Астаны/регионов, так как это влияет на выбор для конкретных офлайн-активаций и промокодов с гео-приявкой.</p>
+    </div>
+
+    <div class="crit-card">
+      <h3>Пол и возраст <span class="pill hard">жёсткий</span></h3>
+      <div class="threshold-line"><span class="lbl">Порог</span> женщины ≥ 60% · 18–35 лет ≥ 55%*</div>
+      <p>Возрастной порог — предложение, требует подтверждения с учётом продуктовой линейки (масс-маркет бьюти MIXIT ориентирован широко, но ядро покупательниц обычно 18–35). Зафиксируйте с руководителем один раз для всех направлений.</p>
+    </div>
+
+    <div class="crit-card">
+      <h3>Интересы и тематика <span class="pill soft">гибкий</span></h3>
+      <p>Подходят: бьюти, уход за собой, лайфстайл, мода, материнство (с акцентом на самой маме, а не только на ребёнке), фитнес/wellness с бьюти-контентом.</p>
+      <p>Не подходят как основной формат: фуд-блогинг (кулинария/рестораны), липсинки, юмористический контент/шутки, политика, финансы/крипто, шоу-бизнес-сплетни, мужской контент без бьюти-сегмента. Такой формат не отсеивается автоматически, если бьюти-контент занимает основную долю ленты, но при смешанном контенте приоритет — блогерам, где бьюти/лайфстайл первичны.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Подлинность аудитории</h2></div>
+    <p class="sec-sub">Главная задача менеджера на этом шаге — отличить живую вовлечённость от накрученной. Ни один из признаков ниже сам по себе не повод для отказа, но два и более совпадения — да.</p>
+
+    <div class="table-scroll">
+      <table class="data">
+        <tr><th>Признак</th><th>Норма</th><th>Тревожный сигнал</th></tr>
+        <tr><td>Масс-фолловеры / боты (LiveDune, trendHERO)</td><td class="num">≤ 30%</td><td>&gt; 40% — отказ</td></tr>
+        <tr><td>Соотношение подписки / подписчики</td><td class="num">блогер подписан меньше, чем на него подписаны</td><td>подписок больше, чем подписчиков</td></tr>
+        <tr><td>Рост подписчиков за неделю</td><td class="num">плавный, до +10–15%</td><td>скачок +30% и выше без вирусного повода</td></tr>
+        <tr><td>Комментарии под последними 5 постами</td><td class="num">развёрнутые, по теме поста</td><td>только эмодзи / шаблонные фразы / одинаковые аккаунты</td></tr>
+        <tr><td>ER по постам за месяц</td><td class="num">стабильный, без провалов</td><td>1–2 поста с аномальным ER на фоне остальных</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Контент, речь и продающие качества</h2></div>
+    <p class="sec-sub">Смотрим последние 5–10 публикаций, включая хотя бы одну рекламную интеграцию, если она есть. Красивая картинка сама по себе не проходной критерий — важно, что и как блогер доносит.</p>
+
+    <div class="crit-card">
+      <h3>Картинка и звук</h3>
+      <p>Достаточный свет, картинка в фокусе, чистый звук без эха и посторонних шумов. Для Reels/TikTok — стабильная картинка (без ручного дрожания на протяжении всего ролика).</p>
+    </div>
+    <div class="crit-card">
+      <h3>Речь</h3>
+      <p>Внятная, чистая дикция, без выраженных дефектов речи. Если блогер казахоязычный (снимает контент для казахоязычной аудитории) — рекламная интеграция также записывается на казахском языке, а не переключается на русский только для рекламных роликов.</p>
+    </div>
+    <div class="crit-card">
+      <h3>Подача и смысл <span class="pill soft">ключевое</span></h3>
+      <p>Живая, естественная речь, без зачитывания текста по бумажке/суфлёру. Тон соответствует формату peer-to-peer, а не дикторской рекламе. Материал не «проходной»: блогер вовлекает, объясняет простыми словами, а не просто показывает продукт под музыку — оцениваем содержание и смысл ролика, а не только картинку.</p>
+    </div>
+    <div class="crit-card">
+      <h3>Умение продавать <span class="pill soft">ключевое</span></h3>
+      <p>Блогер умеет чётко и убедительно донести конкретные преимущества рекламируемого продукта — свойства, кому подходит, чем лучше альтернатив, — а не ограничивается общими фразами вроде «мне нравится» или «советую». Смотрим по прошлым интеграциям (в том числе с другими брендами): есть ли ощутимая мотивация к покупке после просмотра, а не просто демонстрация.</p>
+    </div>
+    <div class="crit-card">
+      <h3>Динамичность</h3>
+      <p>Энергичный темп подачи, без затянутых пауз и монотонности — ролик удерживает внимание до конца, а не теряет зрителя на середине.</p>
+    </div>
+    <div class="crit-card">
+      <h3>Опыт рекламных интеграций</h3>
+      <div class="threshold-line"><span class="lbl">Порог</span> от 3 предыдущих рекламных публикаций в портфолио</div>
+      <p>Демонстрация продукта должна быть понятной: крупный план текстуры/нанесения для бьюти-продуктов, а не общий план на фоне. Блогер без опыта рекламы не отклоняется автоматически, но требует более подробного брифа и контрольного созвона перед съёмкой.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Вовлечённость и коммуникация</h2></div>
+    <div class="crit-card">
+      <h3>Качество вовлечённости аудитории</h3>
+      <p>В комментариях под обычными (не рекламными) постами должны встречаться вопросы о продукте, цене, «где купить» — признак аудитории, готовой совершать покупки по рекомендации. Это отличает вовлечённость, которая конвертируется в продажи, от вовлечённости ради вовлечённости.</p>
+    </div>
+    <div class="crit-card">
+      <h3>Отзывчивость и адекватность блогера</h3>
+      <p>Отвечает на сообщения в течение 24 часов, готов обсуждать правки к ТЗ без конфликта, не завышает цену необоснованно относительно своего тира по охвату.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Организационная надёжность</h2></div>
+    <div class="crit-card">
+      <h3>Готовность предоставить статистику</h3>
+      <p>Скриншоты охватов и данных аудитории не старше 14 дней — до согласования, и повторный скриншот с результатами — после выхода публикации (для сверки с гарантией просмотров и последующего ROMI/CPV-отчёта).</p>
+    </div>
+    <div class="crit-card">
+      <h3>Соблюдение ТЗ и сроков <span class="pill soft">ключевое</span></h3>
+      <p>Если с блогером уже было сотрудничество — проверьте историю: не более одного сорванного дедлайна за последние три интеграции. Для новых блогеров — фиксируем как пункт для оценки после первой публикации. Это один из решающих факторов при принятии решения о повторном размещении (раздел 14).</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">08</span><h2>Цена и CPV</h2></div>
+    <div class="crit-card">
+      <h3>Расчёт CPV <span class="pill soft">на согласование</span></h3>
+      <div class="threshold-line"><span class="lbl">Формула</span> CPV = стоимость размещения ÷ гарантированные просмотры</div>
+      <div class="threshold-line"><span class="lbl">Порог</span> CPV от 5 ₸ — на согласование руководителю</div>
+      <p>До 5 ₸ менеджер согласовывает интеграцию самостоятельно. От 5 ₸ и выше — не отказ, а передача блогера руководителю с пометкой «CPV от 5 ₸» и обоснованием (например, узкая релевантная ниша или уникальный формат интеграции).</p>
+      <p class="why"><b>Связь с отчётностью:</b> CPV на входе — это тот же показатель, что считается в CPV/ROMI-дэшборде после кампании. Отбор по CPV на этапе скрининга снижает долю кампаний, которые потом «тянут» общий ROMI вниз.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">09</span><h2>Brand safety</h2></div>
+    <p class="sec-sub">Учитываем только публично подтверждённые случаи — публикации в СМИ, скриншоты, официальные заявления сторон. Непроверенные слухи без источника — не основание для отказа, но повод присмотреться внимательнее.</p>
+
+    <div class="crit-card">
+      <h3>Что считаем репутационным риском <span class="pill hard">окно 6 мес.</span></h3>
+      <p>Если любая из ситуаций ниже произошла и получила публичную огласку в течение последних 6 месяцев — блогера не берём:</p>
+      <p>— публичные обвинения в обмане рекламодателей: невыполненные рекламные обязательства, скрытая накрутка охватов/подписчиков, доказанный фрод;<br>
+      — громкий публичный конфликт с другим брендом или блогером, вызвавший массовый хейт или призывы к бойкоту;<br>
+      — реклама сомнительных финансовых схем или продуктов (финансовые пирамиды, серые ставки/казино, БАДы и медпрепараты с недоказанными свойствами), после которой были жалобы или проверки;<br>
+      — судебные иски или проверки контролирующих органов с широким освещением в СМИ (например, реклама без обязательной маркировки, нарушение прав потребителей);<br>
+      — публичные оскорбительные высказывания в адрес аудитории или третьих лиц, вызвавшие масштабную негативную реакцию;<br>
+      — доказанный публичный плагиат чужого контента с широким резонансом;<br>
+      — реклама продукта, приведшая к публичным жалобам на качество или безопасность (аллергии, вред здоровью), получившая огласку в СМИ или соцсетях.</p>
+    </div>
+
+    <div class="callout bad">
+      <h3>Остальные причины отказа независимо от метрик</h3>
+      <ul>
+        <li>Сотрудничество с прямым конкурентом бьюти-сегмента прямо сейчас или в течение последних 30 дней</li>
+        <li>Контент 18+, азартные игры, экстремизм, разжигание конфликтов</li>
+        <li>Ранее зафиксированные факты накрутки статистики или обмана рекламодателей (вне зависимости от давности — проверяем отдельно от 6-месячного окна выше)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">10</span><h2>Instagram vs TikTok — на что смотреть иначе</h2></div>
+    <div class="table-scroll">
+      <table class="data">
+        <tr><th>Параметр</th><th>Instagram</th><th>TikTok</th></tr>
+        <tr><td>ER считается от</td><td class="num">реакций на Reels ÷ подписчики (через Apify, раздел 02)</td><td class="num">просмотров видео</td></tr>
+        <tr><td>Что смотреть на охват</td><td class="num">Stories отдельно от Reels — они не равны</td><td class="num">medиана просмотров за 10 роликов, не пиковый вирусный ролик</td></tr>
+        <tr><td>Доп. метрика</td><td class="num">доля дошедших до конца Stories, если доступна</td><td class="num">процент досмотра ролика (completion rate), если доступен</td></tr>
+        <tr><td>Риск накрутки</td><td class="num">масс-фолловинг, боты в комментариях</td><td class="num">резкий вирусный выброс просмотров без роста подписчиков/комментариев</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">11</span><h2>Порядок проверки</h2></div>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><div class="body"><b>Базовая анкета блогера</b><span>Ниша, платформа, подписчики, контакты, ориентир по цене.</span></div></div>
+      <div class="step"><span class="n">2</span><div class="body"><b>Отчёт LiveDune / trendHERO</b><span>Гео, пол, возраст, доля масс-фолловеров / fraud-показатель.</span></div></div>
+      <div class="step"><span class="n">2а</span><div class="body"><b>ER через Apify</b><span>instagram-reel-scraper + instagram-profile-scraper, формула из раздела 02 — цифры передать на расчёт.</span></div></div>
+      <div class="step"><span class="n">3</span><div class="body"><b>Скриншоты встроенной статистики</b><span>Охваты Stories/Reels/TikTok и демография аудитории, не старше 14 дней.</span></div></div>
+      <div class="step"><span class="n">4</span><div class="body"><b>Сверка данных</b><span>Сравнить сервис и скриншоты — расхождение больше 10–15 п.п. проверяем вручную.</span></div></div>
+      <div class="step"><span class="n">5</span><div class="body"><b>Ручной просмотр контента</b><span>Последние 5–10 публикаций: качество съёмки, подача, комментарии, опыт интеграций.</span></div></div>
+      <div class="step"><span class="n">6</span><div class="body"><b>Проверка на конкурентов и репутацию</b><span>Поиск по имени блогера + бренды-конкуренты за последние 30 дней; беглая проверка на скандалы.</span></div></div>
+      <div class="step"><span class="n">7</span><div class="body"><b>Заполнение скоринговой карты</b><span>Раздел 13 — решение: согласовано / отказ / на рассмотрение руководителя.</span></div></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">12</span><h2>Когда передавать руководителю, а не отказывать самим</h2></div>
+    <div class="callout warn">
+      <h3>Эскалация, не автоотказ</h3>
+      <ul>
+        <li>CPV от 5 ₸, но ниша узкая/точно совпадает с продуктом</li>
+        <li>Не проходит по 1 мягкому порогу (например, возраст аудитории или ER 2.5–3%), но сильный по остальным пунктам</li>
+        <li>Крупный охват, потенциально подходит для трека крупных платных блогеров, а не мелких</li>
+        <li>Цена выше стандартной вилки для своего тира подписчиков</li>
+        <li>Блогер без опыта рекламных интеграций, но с высоким качеством контента и живой аудиторией</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">13</span><h2>Скоринговая карта менеджера</h2></div>
+    <p class="sec-sub">Заполняется на каждого кандидата. Одна строка красной зоны (раздел 09) — отказ сразу, без заполнения остального.</p>
+    <div class="scorecard">
+      <div class="sc-row head"><span>Критерий</span><span>Порог</span><span>Факт</span><span>Статус</span></div>
+      <div class="sc-row"><div data-lbl="Критерий">Охват (среднее, Reels/TikTok)</div><div class="num" data-lbl="Порог">≥ 10 000</div><div class="fact-box" data-lbl="Факт"></div><div class="status-box" data-lbl="Статус"></div></div>
+      <div class="sc-row"><div data-lbl="Критерий">Подписчики</div><div class="num" data-lbl="Порог">≥ 5 000 либо охват ≥ 10 000</div><div class="fact-box" data-lbl="Факт"></div><div class="status-box" data-lbl="Статус"></div></div>
+      <div class="sc-row"><div data-lbl="Критерий">ER (через Apify)</div><div class="num" data-lbl="Порог">≥ 3%</div><div class="fact-box" data-lbl="Факт"></div><div class="status-box" data-lbl="Статус"></div></div>
+      <div class="sc-row"><div data-lbl="Критерий">Просмотры на рекламном ролике</div><div class="num" data-lbl="Порог">≥ 10 000</div><div class="fact-box" data-lbl="Факт"></div><div class="status-box" data-lbl="Статус"></div></div>
+      <div class="sc-row"><div data-lbl="Критерий">CPV</div><div class="num" data-lbl="Порог">до 5 ₸ / от 5 ₸ — на согласование</div><div class="fact-box" data-lbl="Факт"></div><div class="status-box" data-lbl="Статус"></div></div>
+      <div class="sc-row"><div data-lbl="Критерий">Гео KZ</div><div class="num" data-lbl="Порог">≥ 60%</div><div class="fact-box" data-lbl="Факт"></div><div class="status-box" data-lbl="Статус"></div></div>
+      <div class="sc-row"><div data-lbl="Критерий">Женская аудитория</div><div class="num" data-lbl="Порог">≥ 60%</div><div class="fact-box" data-lbl="Факт"></div><div class="status-box" data-lbl="Статус"></div></div>
+      <div class="sc-row"><div data-lbl="Критерий">Масс-фолловеры</div><div class="num" data-lbl="Порог">≤ 30%</div><div class="fact-box" data-lbl="Факт"></div><div class="status-box" data-lbl="Статус"></div></div>
+      <div class="sc-row"><div data-lbl="Критерий">Речь и подача (внятность, язык, вовлечение)</div><div class="num" data-lbl="Порог">соответствует</div><div class="fact-box" data-lbl="Факт"></div><div class="status-box" data-lbl="Статус"></div></div>
+      <div class="sc-row"><div data-lbl="Критерий">Умение продавать</div><div class="num" data-lbl="Порог">соответствует</div><div class="fact-box" data-lbl="Факт"></div><div class="status-box" data-lbl="Статус"></div></div>
+      <div class="sc-row"><div data-lbl="Критерий">Brand safety</div><div class="num" data-lbl="Порог">чисто</div><div class="fact-box" data-lbl="Факт"></div><div class="status-box" data-lbl="Статус"></div></div>
+      <div class="sc-row"><div data-lbl="Критерий">Соблюдение ТЗ и сроков (история)</div><div class="num" data-lbl="Порог">без нарушений</div><div class="fact-box" data-lbl="Факт"></div><div class="status-box" data-lbl="Статус"></div></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">14</span><h2>Повторные размещения</h2></div>
+    <p class="sec-sub">Применяется к блогерам, которые уже прошли разделы 01–13 и отработали хотя бы одну интеграцию. Здесь решаем не «пропускать или нет», а «продолжать ли сотрудничество и на каких условиях» — по фактическим результатам прошлой кампании, а не по профильным метрикам аккаунта.</p>
+
+    <div class="crit-card">
+      <h3>Продажи</h3>
+      <p>Заметный всплеск продаж или переходов по промокоду / QR-attribution после публикации, видимый в системе учёта. Смотрим прирост относительно фонового уровня до интеграции, а не абсолютное число.</p>
+    </div>
+    <div class="crit-card">
+      <h3>Просмотры</h3>
+      <p>Хотя бы один рекламный ролик показал результат заметно выше гарантии или среднего по нише («залетел») — сигнал, что формат и аудитория блогера действительно резонируют с продуктом, а не просто закрывают минимум по контракту.</p>
+    </div>
+    <div class="crit-card">
+      <h3>Соблюдение ТЗ</h3>
+      <p>Требования к рекламной подаче — упоминание бренда, демонстрация продукта, обязательные тезисы — были выполнены без необходимости повторных правок после публикации.</p>
+    </div>
+    <div class="crit-card">
+      <h3>Сроки</h3>
+      <p>Материалы на согласование и сама публикация сданы вовремя по датам, зафиксированным в ТЗ.</p>
+    </div>
+    <div class="crit-card">
+      <h3>CPV <span class="pill soft">на согласование</span></h3>
+      <div class="threshold-line"><span class="lbl">Порог</span> CPV от 5 ₸ по факту вышедшей интеграции — на согласование</div>
+      <p>Считается по фактическим просмотрам, а не по гарантии. Если CPV вырос по сравнению с прошлой интеграцией и достиг 5 ₸ и выше — на рассмотрение руководителя перед повторным бронированием.</p>
+    </div>
+    <div class="crit-card">
+      <h3>Отклик аудитории</h3>
+      <p>В комментариях и директе — вопросы о товаре, переходы по ссылке или в профиль бренда, оформленные заказы. Это самый прямой признак того, что аудитория блогера конвертируется в покупателей MIXIT, а не просто лайкает контент.</p>
+    </div>
+    <div class="crit-card">
+      <h3>Коммуникация</h3>
+      <p>Быстрая обратная связь, готовность вносить правки в материалы без конфликта и без сдвига сроков.</p>
+    </div>
+
+    <div class="callout warn">
+      <h3>Решение по итогам оценки</h3>
+      <ul>
+        <li>Все пункты закрыты, CPV в норме — бронируем повторно на тех же условиях, приоритет при планировании следующих активностей</li>
+        <li>Сильные продажи и отклик, но вопрос по CPV или срокам — на рассмотрение руководителя перед повторным бронированием</li>
+        <li>Стабильно высокие продажи и отклик на протяжении нескольких интеграций подряд — кандидат на повышение трека (карманный блогер / амбассадор)</li>
+        <li>Просели продажи, отклик и соблюдение ТЗ одновременно — сотрудничество приостанавливаем</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    Значения со звёздочкой (*) — рекомендованные пороги, требуют однократного подтверждения с руководителем, дальше применяются как стандарт. Разделы 01–13 — первичный скрининг новых блогеров, раздел 14 — решение по уже работавшим. Документ рассчитан на сегмент мелких платных блогеров, Instagram и TikTok; для крупных платных, карманных блогеров и амбассадоров пороги по охвату и цене отличаются.
+  </footer>
+
+</div>
